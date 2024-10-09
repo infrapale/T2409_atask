@@ -74,12 +74,12 @@ void atask_run(void)
 			if (now_ms >= task[atask_ctrl.run_indx]->next_run )
 			{
 				//Serial.print(atask_ctrl.run_indx);
-				task[atask_ctrl.run_indx]->prev_state = task[atask_ctrl.run_indx]->state;
 				task[atask_ctrl.run_indx]->next_run = now_ms + task[atask_ctrl.run_indx]->interval;
 				(*task[atask_ctrl.run_indx]->cb)();
 				task[atask_ctrl.run_indx]->cntr++;
 			}
 		}
+		task[atask_ctrl.run_indx]->prev_state = task[atask_ctrl.run_indx]->state;
 		atask_ctrl.run_indx++;
 
     } 
@@ -92,16 +92,16 @@ void atask_run(void)
 void atask_print_status(bool force)
 {   char buffer[64];
     // bool do_print = false;
-    // Serial.printf("now = %d\n", millis());
+    Serial.print("Now = ");
+	Serial.println(millis());
     for (uint8_t i = 0; i < atask_ctrl.head_indx; i++)
     {
         if ((task[i]->prev_state != task[i]->state) || force)
         {
-            sprintf(buffer,"%s: %d -> %d @ %d # %d %d  %d\n",
+            sprintf(buffer,"%s: %d -> %d next %d %d  %d\n",
               task[i]->name, 
               task[i]->prev_state, 
               task[i]->state, 
-              millis(),
               task[i]->next_run,
 			  task[i]->cntr,
 			  task[i]->run_flag);

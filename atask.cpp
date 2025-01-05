@@ -59,7 +59,7 @@ atask_st *atask_get_task(uint8_t task_indx)
 
 void atask_delay(uint8_t tindx, uint32_t delay_ms)
 {
-  task[tindx]->interval = millis() + delay_ms;
+  task[tindx]->next_run = millis() + delay_ms;
 }
 
 void atask_run(void)

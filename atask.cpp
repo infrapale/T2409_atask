@@ -98,7 +98,7 @@ void atask_print_status(bool force)
     {
         if ((task[i]->prev_state != task[i]->state) || force)
         {
-            sprintf(buffer,"%s: %d -> %d next %d %d  %d\n",
+            sprintf(buffer,"%s: %d -> %d next %lu %d %d\n",
               task[i]->name, 
               task[i]->prev_state, 
               task[i]->state, 
